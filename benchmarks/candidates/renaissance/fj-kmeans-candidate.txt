@@ -1,0 +1,10 @@
+java/util/ArrayList
+java/lang/Double
+java/util/HashMap
+org/renaissance/jdk/concurrent/JavaKMeans$AssignmentTask
+org/renaissance/jdk/concurrent/JavaKMeans$VectorSumTask
+org/renaissance/jdk/concurrent/JavaKMeans$UpdateTask
+java/lang/StringBuilder
+scopt/OptionDef
+java/lang/Object
+scala/runtime/Nothing$

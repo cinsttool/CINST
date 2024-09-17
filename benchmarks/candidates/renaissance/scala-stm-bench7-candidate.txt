@@ -1,0 +1,10 @@
+stmbench7/scalastm/ImmutableSetImpl
+stmbench7/impl/core/ConnectionImpl
+java/lang/StringBuilder
+java/lang/String
+stmbench7/scalastm/LargeSetImpl
+stmbench7/scalastm/AtomicPartImpl
+java/util/HashSet
+stmbench7/scalastm/ImmutableSeqImpl
+scala/reflect/OptManifest
+java/lang/Object

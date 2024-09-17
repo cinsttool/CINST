@@ -1,0 +1,10 @@
+io/jenetics/MutatorResult
+io/jenetics/DoubleGene
+io/jenetics/internal/collection/Array$Store$Ref
+io/jenetics/internal/collection/Array
+io/jenetics/internal/collection/ObjectStore
+io/jenetics/internal/collection/ArrayISeq
+java/lang/Object
+io/jenetics/internal/collection/BaseSeqIterator
+io/jenetics/internal/collection/ArrayMSeq
+io/jenetics/internal/collection/BaseSeqSpliterator

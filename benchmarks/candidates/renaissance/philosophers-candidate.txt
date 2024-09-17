@@ -1,0 +1,10 @@
+scala/Some
+java/lang/Object
+scala/collection/immutable/StringOps
+scala/collection/mutable/StringBuilder
+scala/Tuple2
+java/lang/StringBuilder
+scopt/OptionDef
+scala/runtime/Nothing$
+java/util/LinkedHashSet
+org/renaissance/core/BenchmarkDescriptor

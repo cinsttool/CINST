@@ -1,0 +1,10 @@
+java/lang/StringBuffer
+java/util/TreeMap
+nu/xom/Attribute
+java/lang/String
+nu/xom/Node
+nu/xom/Element
+java/util/TreeSet
+org/w3c/tidy/Node
+org/w3c/tidy/MutableBoolean
+nu/xom/Text

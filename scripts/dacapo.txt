@@ -1,0 +1,11 @@
+avrora
+batik
+biojava
+eclipse
+fop
+kafka
+lusearch
+pmd
+xalan
+zxing
+sunflow

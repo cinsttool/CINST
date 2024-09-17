@@ -1,0 +1,10 @@
+java/lang/StringBuilder
+java/io/File
+org/jfree/chart/axis/NumberTickUnit
+java/lang/Object
+spec/benchmarks/scimark/utils/Random
+spec/benchmarks/scimark/utils/Stopwatch
+spec/benchmarks/scimark/fft/FFT
+java/util/ArrayList
+java/lang/StringBuffer
+java/lang/Double

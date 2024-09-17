@@ -1,0 +1,10 @@
+java/lang/StringBuilder
+java/io/File
+org/jfree/chart/axis/NumberTickUnit
+java/lang/Object
+java/util/ArrayList
+java/lang/StringBuffer
+java/lang/Double
+java/awt/geom/Line2D$Double
+org/jfree/chart/axis/NumberTick
+spec/reporter/ReportGenerator$Pair

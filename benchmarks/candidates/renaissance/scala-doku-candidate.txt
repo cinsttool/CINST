@@ -1,0 +1,10 @@
+scala/Some
+cafesat/sat/Literal
+scala/collection/mutable/ListBuffer
+cafesat/asts/core/Trees$ConnectiveApplication
+scala/Tuple2
+scala/collection/SeqFactory$UnapplySeqWrapper
+cafesat/sat/Solver$Clause
+scala/collection/immutable/$colon$colon
+cafesat/asts/core/Trees$PredicateApplication
+cafesat/sat/Solver$Clause$$anonfun$$lessinit$greater$1

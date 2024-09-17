@@ -1,0 +1,10 @@
+java/lang/StringBuilder
+java/lang/String
+java/util/HashSet
+scopt/OptionDef
+java/lang/Object
+scala/runtime/Nothing$
+java/util/LinkedHashSet
+org/renaissance/core/BenchmarkDescriptor
+scopt/Read$$anon$3
+java/util/ArrayList

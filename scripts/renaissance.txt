@@ -1,0 +1,13 @@
+akka-uct
+als
+db-shootout
+fj-kmeans
+future-genetic
+log-regression
+mnemonics
+par-menemonics
+philosophers
+reactors
+scala-doku
+scala-stm-bench7
+scrabble

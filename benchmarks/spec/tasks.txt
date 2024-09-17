@@ -1,0 +1,12 @@
+compress
+crypto.aes
+crypto.rsa
+crypto.signverify
+mpegaudio
+scimark.fft.small
+scimark.lu.small
+scimark.sor.small
+scimark.sparse.small
+scimark.monte_carlo
+serial
+xml.transform

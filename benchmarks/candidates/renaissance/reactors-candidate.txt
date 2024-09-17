@@ -1,0 +1,10 @@
+io/reactors/concurrent/Frame$Info
+io/reactors/common/UnrolledRing$Node
+io/reactors/common/Monitor
+io/reactors/common/UnrolledRing
+io/reactors/Events$Emitter
+scala/collection/mutable/ArrayOps$ofRef
+io/reactors/EventQueue$UnrolledRing
+io/reactors/Channel$Local
+io/reactors/package$ChannelUrl
+io/reactors/Channel$Shared

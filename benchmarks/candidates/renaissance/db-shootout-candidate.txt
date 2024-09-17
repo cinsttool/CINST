@@ -1,0 +1,10 @@
+java/lang/Object
+[B
+org/mapdb/DataInput2$ByteBuffer
+org/mapdb/BTreeMapJava$Node
+org/h2/mvstore/CursorPos
+org/h2/mvstore/Page$PageReference
+java/util/concurrent/CopyOnWriteArrayList
+net/openhft/chronicle/core/io/ReferenceChangeListenerManager
+net/openhft/chronicle/core/io/VanillaReferenceCounted
+net/openhft/chronicle/bytes/internal/HeapBytesStore

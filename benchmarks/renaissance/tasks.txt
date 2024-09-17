@@ -1,0 +1,14 @@
+scrabble
+future-genetic
+akka-uct
+scala-doku
+movie-lens
+fj-kmeans
+db-shootout
+reactors
+scala-stm-bench7
+par-mnemonics
+als
+philosophers
+log-regression
+mnemonics

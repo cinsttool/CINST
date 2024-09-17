@@ -1,0 +1,10 @@
+scala/Tuple2$mcID$sp
+org/apache/spark/sql/types/StructField
+org/apache/spark/sql/types/ArrayType
+org/apache/spark/sql/catalyst/expressions/UnsafeArrayData
+java/lang/String
+org/apache/spark/sql/catalyst/expressions/UnsafeRow
+org/apache/xbean/asm9/Label
+org/apache/spark/ml/linalg/SparseVector
+java/lang/Object
+org/apache/spark/sql/types/StructType
