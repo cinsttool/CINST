@@ -1,20 +1,19 @@
 # Case Studies
 
-This section can be used to demonstrate practical improvements enabled by CINST.
+This page summarizes real optimizations discovered with CINST and validated on real Java applications.
 
-## Suggested case study template
+## Summary of optimization outcomes
 
-For each case:
+CINST-reported container inefficiencies were fixed with small code changes and produced meaningful end-to-end speedups. In the reported experience:
 
-1. **Context**: application/workload and suspected inefficiency.
-2. **Observation with CINST**: which pattern query triggered and what evidence was found.
-3. **Action**: source/runtime change made.
-4. **Outcome**: performance/resource deltas and interpretation.
+- optimizations preserved semantics across inputs and passed project tests,
+- each issue was resolved within 1-2 days by a junior graduate student,
+- multiple fixes were submitted upstream, and over half were merged.
 
-## Example study ideas
+Upstream PRs:
 
-- Eliminating unnecessary container insertions in hot loops.
-- Replacing expensive container patterns after identifying low-value operations.
-- Comparing API-level behavior before/after optimization patching.
-
-A small number of well-documented case studies can significantly improve perceived tool usefulness.
+- Apache Lucene: <https://github.com/apache/lucene/pull/13254>
+- Apache PDFBox: <https://github.com/apache/pdfbox/pull/188>
+- BioJava: <https://github.com/biojava/biojava/pull/1089>
+- FASTJSON2: <https://github.com/alibaba/fastjson2/pull/2385>
+- ZXing: <https://github.com/zxing/zxing/pull/1782>
