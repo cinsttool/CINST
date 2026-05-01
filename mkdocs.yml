@@ -2,6 +2,8 @@ site_name: CINST Documentation
 site_description: User and developer documentation for CINST.
 site_url: https://cinsttool.github.io/CINST-Artifact
 repo_url: https://github.com/cinsttool/CINST-Artifact
+repo_name: CINST
+
 theme:
   name: material
 nav:
