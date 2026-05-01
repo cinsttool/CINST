@@ -1,4 +1,4 @@
-# CINST Artifact
+# CINST
 
 ## Build and Use of CINST
 
