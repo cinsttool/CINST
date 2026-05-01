@@ -111,30 +111,3 @@ cd benchmarks
 ```
 
 Two pdf file will be generated.
-
-## Documentation Website
-
-This repository includes a dedicated documentation website source.
-
-- Docs source: `docs/`
-- Site config: `mkdocs.yml`
-- CI deploy workflow: `.github/workflows/docs-deploy.yml`
-
-### Local preview
-
-```bash
-mkdocs serve
-```
-
-### Static build
-
-```bash
-mkdocs build
-```
-
-### GitHub Pages deployment
-
-1. Create a new GitHub repository (recommended name: `cinst-docs`).
-2. Push this code to the repository default branch.
-3. In GitHub settings, enable **Pages** with source **GitHub Actions**.
-4. The workflow deploys automatically on push to `main`.
