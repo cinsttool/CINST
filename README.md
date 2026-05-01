@@ -49,7 +49,7 @@ We provide a representative file in this repo, please put this file in the execu
 
 #### Bootstrap mode
 
-Only bootstrap mode can trace some java standard library. 
+Only bootstrap mode can trace some java standard library.
 
 Add java argument `-Xbootclasspath/a:/path/to/CINST/agent-jar-with-dependencies.jar` and you can enable bootstrap mode.
 
@@ -76,12 +76,10 @@ It may take long time to run overhead evaluation.
 
 - Jdk 8
 - Jdk 11
-- python3 
+- python3
   - numpy
   - scipy
   - matplotlib
-
-
 
 ### Preparation of Benchmarks
 
