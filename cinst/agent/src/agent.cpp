@@ -461,9 +461,9 @@ ClassFileLoadHook(jvmtiEnv *jvmti_env,
     if (transformed_classes.find(name) != transformed_classes.end()) {
         return;
     }
-    if ((mode == USEMODE) && candidates.find(name) == candidates.end()) {
-        return;
-    }
+    // if ((mode == USEMODE) && candidates.find(name) == candidates.end() && candidates.find("*/*") == candidates.end()) {
+    //     return;
+    // }
     transformed_classes.insert(name);
     spdlog::debug("enter ClassFileLoadHook for class {}", name);
     if (class_data_len == 0) {

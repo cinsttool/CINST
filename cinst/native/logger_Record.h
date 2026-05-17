@@ -23,6 +23,9 @@ JNIEXPORT void JNICALL Java_logger_Record_addPutFieldRecord
 JNIEXPORT void JNICALL Java_logger_Record_addNewRecord
   (JNIEnv *, jclass, jlong, jint, jint, jint, jlong);
 
+JNIEXPORT void JNICALL Java_logger_Record_addConstructRecord
+  (JNIEnv *, jclass, jlong, jint, jint, jint);
+
 /*
  * Class:     logger_Record
  * Method:    addAASTORERecord
@@ -38,7 +41,7 @@ JNIEXPORT jlong JNICALL Java_logger_Record_getPid
   (JNIEnv *jvmti_env, jclass klass);
 
 JNIEXPORT void JNICALL Java_logger_Record_addUseRecord
-  (JNIEnv *, jclass, jlong, jint, jint);
+  (JNIEnv *, jclass, jint, jlong, jint, jint);
 
 JNIEXPORT void JNICALL Java_logger_Record_addFreeRecord
   (JNIEnv *, jclass, jlong, jlong);
@@ -68,25 +71,25 @@ JNIEXPORT void JNICALL Java_logger_Record_addStaticFieldValueRecordJdouble
 JNIEXPORT void JNICALL Java_logger_Record_addStaticFieldValueRecordJstring
   (JNIEnv *, jclass, jstring, jint, jint, jint, jboolean);
 JNIEXPORT jboolean JNICALL Java_logger_Record_addContainerRecordList5
-  (JNIEnv *jvmti_env, jclass klass, jboolean retobj, jlong holder_addr, jlong ref_addr, jint size, jint cid, jint copid);
+  (JNIEnv *jvmti_env, jclass klass, jboolean retobj, jobject holder, jobject ref, jint size, jint cid, jint copid);
 JNIEXPORT void JNICALL Java_logger_Record_addContainerRecordList6
-  (JNIEnv *jvmti_env, jclass klass, jlong holder_addr, jint idx, jlong ref_addr, jint size, jint cid, jint copid);
+  (JNIEnv *jvmti_env, jclass klass, jobject holder, jint idx, jobject ref, jint size, jint cid, jint copid);
 JNIEXPORT void JNICALL Java_logger_Record_addContainerRecordList4
-  (JNIEnv *jvmti_env, jclass klass, jlong holder_addr, jint size, jint cid, jint copid);
+  (JNIEnv *jvmti_env, jclass klass, jobject holder, jint size, jint cid, jint copid);
 JNIEXPORT void JNICALL Java_logger_Record_addContainerRecordMap4
-  (JNIEnv *jvmti_env, jclass klass, jlong holder_addr, jint size, jint cid, jint copid);
+  (JNIEnv *jvmti_env, jclass klass, jobject holder, jint size, jint cid, jint copid);
 JNIEXPORT jint JNICALL Java_logger_Record_addContainerRecordListI5
-  (JNIEnv *jvmti_env, jclass klass, jint idx, jlong holder_addr, jlong ref_addr, jint size, jint cid, jint copid);
+  (JNIEnv *jvmti_env, jclass klass, jint idx, jobject holder, jobject ref, jint size, jint cid, jint copid);
 JNIEXPORT jobject JNICALL Java_logger_Record_addContainerRecordList15
-  (JNIEnv *jvmti_env, jclass klass, jobject retobj, jlong ref_addr, jlong holder_addr, jint idx_or_succ, jint size, jint cid, jint copid);
+  (JNIEnv *jvmti_env, jclass klass, jobject retobj, jobject holder, jint idx_or_succ, jint size, jint cid, jint copid);
 JNIEXPORT jobject JNICALL Java_logger_Record_addContainerRecordList14
-  (JNIEnv *jvmti_env, jclass klass, jobject retobj, jlong ref_addr, jlong holder_addr, jint size, jint cid, jint copid);
+  (JNIEnv *jvmti_env, jclass klass, jobject retobj, jobject holder, jint size, jint cid, jint copid);
 JNIEXPORT jobject JNICALL Java_logger_Record_addContainerRecordMap15
-  (JNIEnv *jvmti_env, jclass klass, jobject retobj, jlong ref_addr, jlong holder_addr, jlong key_addr, jint size, jint cid, jint copid);
+  (JNIEnv *jvmti_env, jclass klass, jobject retobj, jobject holder, jobject key, jint size, jint cid, jint copid);
 JNIEXPORT void JNICALL Java_logger_Record_addContainerRecordMap5
-  (JNIEnv *jvmti_env, jclass klass, jlong holder_addr, jlong map_addr, jint size, jint cid, jint copid);
+  (JNIEnv *jvmti_env, jclass klass, jobject holder, jobject map, jint size, jint cid, jint copid);
 JNIEXPORT jobject JNICALL Java_logger_Record_addContainerRecordMap16
-  (JNIEnv *jvmti_env, jclass klass, jobject retobj, jlong ref_addr, jlong holder_addr, jlong key_addr, jlong value_addr, jint size, jint cid, jint copid);
+  (JNIEnv *jvmti_env, jclass klass, jobject retobj, jobject holder, jobject key, jobject value, jint size, jint cid, jint copid);
 JNIEXPORT void JNICALL Java_logger_Record_decreaseContainerFilterFlag
   (JNIEnv *jvmti_env, jclass klass);
 JNIEXPORT void JNICALL Java_logger_Record_unsetIsRightAfter
@@ -103,6 +106,7 @@ JNIEXPORT jboolean JNICALL Java_logger_Record_getPrintNew
   (JNIEnv *jvmti_env, jclass klass);
 JNIEXPORT void JNICALL Java_logger_Record_addContainerLineInfoRecord
   (JNIEnv *, jclass, jint line, jint class_name_id);
+  // (JNIEnv *, jclass, jobject holder, jint line, jint class_name_id);
 JNIEXPORT void JNICALL Java_logger_Record_printCallTrace
   (JNIEnv *, jclass);
 JNIEXPORT jlong JNICALL Java_logger_Record_allocateArgsBuffer
@@ -117,6 +121,21 @@ JNIEXPORT void JNICALL Java_logger_Record_putDouble
   (JNIEnv *, jclass, jlong pos, jdouble val);
 JNIEXPORT void JNICALL Java_logger_Record_putFloat
   (JNIEnv *, jclass, jlong pos, jfloat val);
+
+JNIEXPORT void JNICALL Java_logger_Record_addTagNewRecord
+  (JNIEnv *jni_env, jclass klass, jobject obj, jint obj_typeid, jint line, jint class_name_id, jlong obj_size);
+
+JNIEXPORT void JNICALL Java_logger_Record_addTagPutFieldRecord
+  (JNIEnv *jni_env, jclass klass, jobject holder, jobject ref, jint line, jint class_name_id, int field_id);
+
+JNIEXPORT void JNICALL Java_logger_Record_addTagConstructRecord
+  (JNIEnv *jni_env, jclass klass, jobject obj, jint obj_typeid, jint line, jint class_name_id);
+
+JNIEXPORT void JNICALL Java_logger_Record_addTagAASTORERecord
+  (JNIEnv *jni_env, jclass klass, jobject holder, jint index, jobject ref, jint line, jint class_name_id);
+
+JNIEXPORT void JNICALL Java_logger_Record_addTagUseRecord
+  (JNIEnv *jni_env, jclass klass, jint type, jobject obj, jint line, jint class_name_id );
 
 // #define Java_logger_Record_addFieldValueRecord(type,jvmti_env, klass, addr, value, line, class_name_id, field_id, is_put) JNIEXPORT void JNICALL Java_logger_Record_addFieldValueRecord_##type \
 //   (jvmti_env, klass, addr, value, line, class_name_id, field_id, is_put);

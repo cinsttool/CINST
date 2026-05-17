@@ -22,7 +22,7 @@ struct AddressType<0>
 inline uint64_t nanotime()
 {
     struct timespec ts;
-    clock_gettime(CLOCK_REALTIME, &ts);
+    clock_gettime(CLOCK_MONOTONIC , &ts);
     return ts.tv_sec*((uint64_t)1e9)+ts.tv_nsec;
 }
 
@@ -58,6 +58,23 @@ std::ostream& operator <<(std::ostream& os, const PutFieldRecord<is_64bit>& r) {
     return os;
 }
 
+template<int is_64bit>
+struct ConstructRecord
+{
+    static constexpr const char* prefix = "Construct";
+    using addr_t = typename AddressType<is_64bit>::value;
+    uint16_t line;
+    uint16_t class_name_id;
+    int obj_typeid;
+    addr_t addr;
+    uint64_t time;
+};
+
+template <int is_64bit>
+std::ostream& operator <<(std::ostream& os, const ConstructRecord<is_64bit>& r) {
+    os<<r.line<<","<<r.class_name_id<<","<<r.time<<","<<r.obj_typeid<<","<<r.addr<<"\n";
+    return os;
+}
 template<int is_64bit>
 struct NewRecord
 {
@@ -99,6 +116,7 @@ struct UseRecord
 {
     static constexpr const char* prefix = "Use";
     using addr_t = typename AddressType<is_64bit>::value;
+    uint16_t type;
     uint16_t line;
     uint16_t class_name_id;
     addr_t addr;
@@ -106,7 +124,7 @@ struct UseRecord
 };
 template<int is_64bit>
 std::ostream& operator <<(std::ostream& os, const UseRecord<is_64bit>& r) {
-    os<<r.line<<","<<r.class_name_id<<","<<r.addr<<","<<r.time<<"\n";
+    os<<r.type<<","<<r.line<<","<<r.class_name_id<<","<<r.addr<<","<<r.time<<"\n";
     return os;
 }
 

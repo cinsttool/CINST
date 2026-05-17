@@ -64,6 +64,8 @@ with open("err.log", "a") as f:
                 ed = timer()
 
                 ort_time = ed - st
+                with open(f"{run_st}/time.log", "a") as fout:
+                    fout.write(f"{case[0]}, {orgi_time}, {ort_time}, {time_mark}\n")
                 with open(f"{run_st}/ort-{case}-{time_mark}.log", 'wb') as f1:
                     if (res.stdout != None):
                         f1.write(res.stdout)

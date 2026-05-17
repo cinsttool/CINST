@@ -7,5 +7,4 @@ cd ../scripts
 ./process_log.sh
 
 python3 ./overhead.py
-python3 ./overhead.py 2
 mv *.pdf ../benchmarks

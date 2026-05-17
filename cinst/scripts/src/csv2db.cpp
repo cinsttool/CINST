@@ -77,7 +77,8 @@ unordered_map<string, string> sql_map = {
     {"AAStore", "LINE, CLASS_NAME_ID, TIME, ID, ADDR0, ADDR1"},
     {"PutField", "LINE, CLASS_NAME_ID, ID, TIME, ADDR0, ADDR1"},
     {"NEW", "LINE, CLASS_NAME_ID, TIME, ID, ADDR0, ADDR1"},
-    {"Use", "LINE, CLASS_NAME_ID, ADDR0, TIME"},
+    {"Construct", "LINE, CLASS_NAME_ID, TIME, ID, ADDR0"},
+    {"Use", "ID, LINE, CLASS_NAME_ID, ADDR0, TIME"},
     {"Free", "TIME, ADDR0, ADDR1"},
     {"Event", "TIME, ID"}
 };
@@ -87,7 +88,8 @@ unordered_map<string, string> value_map = {
     {"AAStore", "?,?,?,?,?,?,?"},
     {"PutField", "?,?,?,?,?,?,?"},
     {"NEW", "?,?,?,?,?,?,?"},
-    {"Use", "?,?,?,?,?"},
+    {"Construct", "?,?,?,?,?,?"},
+    {"Use", "?,?,?,?,?,?"},
     {"Free", "?,?,?,?"},
     {"Event", "?,?,?"}
 };
@@ -96,6 +98,7 @@ unordered_map<string, char> type_map = {
     {"AAStore",'a'},
     {"PutField",'p'},
     {"NEW",'n'},
+    {"Construct",'c'},
     {"Use", 'u'},
     {"Free", 'f'},
     {"Event", 'e'}
@@ -116,6 +119,7 @@ void sql_bind(sqlite3_stmt* pstmt, FreeRecord<0> *r) {
 }
 void sql_bind(sqlite3_stmt* pstmt, UseRecord<0> *r) {
     int nCol = 1;
+    sqlite3_bind_int(pstmt, nCol++, r->type);
     sqlite3_bind_int(pstmt, nCol++, r->line);
     sqlite3_bind_int(pstmt, nCol++, r->class_name_id);
     sqlite3_bind_int64(pstmt, nCol++, r->addr);
@@ -149,6 +153,15 @@ void sql_bind(sqlite3_stmt* pstmt, NewRecord<0>* r) {
     sqlite3_bind_int64(pstmt, nCol++, r->addr);
     sqlite3_bind_int64(pstmt, nCol++, r->obj_size);
     sqlite3_bind_int(pstmt, nCol++, 'n');
+}
+void sql_bind(sqlite3_stmt* pstmt, ConstructRecord<0>* r) {
+    int nCol = 1;
+    sqlite3_bind_int(pstmt, nCol++, r->line);
+    sqlite3_bind_int(pstmt, nCol++, r->class_name_id);
+    sqlite3_bind_int64(pstmt, nCol++, r->time);
+    sqlite3_bind_int64(pstmt, nCol++, r->obj_typeid);
+    sqlite3_bind_int64(pstmt, nCol++, r->addr);
+    sqlite3_bind_int(pstmt, nCol++, 'c');
 }
 void sql_bind(sqlite3_stmt* pstmt, PutFieldRecord<0>* r) {
     int nCol = 1;
@@ -288,6 +301,7 @@ int main(int argc, char* argv[]) {
         LOAD_TIMELINE(AAStoreRecord<0>, file, db, sql, ss, fin, buf);
         LOAD_TIMELINE(PutFieldRecord<0>, file, db, sql, ss, fin, buf);
         LOAD_TIMELINE(NewRecord<0>, file, db, sql, ss, fin, buf);
+        LOAD_TIMELINE(ConstructRecord<0>, file, db, sql, ss, fin, buf);
         LOAD_TIMELINE(UseRecord<0>, file, db, sql, ss, fin, buf);
         LOAD_TIMELINE(FreeRecord<0>, file, db, sql, ss, fin, buf);
         LOAD_TIMELINE(EventRecord<0>, file, db, sql, ss, fin, buf);

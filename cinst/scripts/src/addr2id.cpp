@@ -18,6 +18,45 @@ using std::vector;
 using addr_t = uint32_t;
 FILE* new_id_file;
 
+template<typename T>
+class DetectTime
+{
+    struct Fallback { uint64_t time; }; // add member name "X"
+    struct Derived : T, Fallback { };
+
+    template<typename U, U> struct Check;
+
+    // typedef char ArrayOfOne[1];  // typedef for an array of size one.
+    // typedef char ArrayOfTwo[2];  // typedef for an array of size two.
+    using ArrayOfOne = char[1];
+    using ArrayOfTwo = char[2];
+
+    template<typename U> 
+    static ArrayOfOne & func(Check<uint64_t Fallback::*, &U::time> *);
+
+    template<typename U> 
+    static ArrayOfTwo & func(...);
+
+  public:
+    typedef DetectTime type;
+    enum { IsMemberExist = sizeof(func<Derived>(0)) == 2 };
+};
+
+
+template<typename T>
+uint64_t value(const T& t)
+{
+    if constexpr (DetectTime<T>::IsMemberExist)
+    {
+        return t.time;
+    }
+    else
+    {
+        return t.br.time;
+    }
+}
+
+
 constexpr uint32_t GC_MASK = 0x80000000;
 struct unique_addr_info
 {
@@ -200,7 +239,7 @@ void process_data_file(const string &filepath, const vector<std::function<addr_t
 
 }
 template <typename T>
-void process_all_container_data_file(const vector<std::function<addr_t &(T &)>> &funcs)
+void process_all_data_file(const vector<std::function<addr_t &(T &)>> &funcs)
 {
     vector<string> data_files;
     filesStartWith(".", data_files, T::prefix);
@@ -210,8 +249,9 @@ void process_all_container_data_file(const vector<std::function<addr_t &(T &)>> 
         RecordReader<T> reader(path);
         for (const auto& func:funcs)
         {
+            
             reader.register_transformer([&](auto& val) {
-                func(val) = am.query(func(val), val.br.time);
+                func(val) = am.query(func(val), value(val));
             });
         }
         reader.transform_local();
@@ -229,6 +269,7 @@ void process_all_field_data_file(const vector<std::function<addr_t &(T &)>> &fun
         RecordReader<T> reader(path);
         for (const auto& func:funcs)
         {
+            
             reader.register_transformer([&](auto& val) {
                 func(val) = am.query(func(val), val.time);
             });
@@ -236,15 +277,16 @@ void process_all_field_data_file(const vector<std::function<addr_t &(T &)>> &fun
         reader.transform_local();
     }
 }
+
 int main()
 {
     new_id_file = fopen("addr-id.dat", "w");
     build_addr_map();
-    process_all_container_data_file(vector<std::function<addr_t&(ListAndSetRecord<0>&)>>{
+    process_all_data_file(vector<std::function<addr_t&(ListAndSetRecord<0>&)>>{
            [](auto& r) -> addr_t&  {return r.br.holder_addr;},
            [](auto& r) -> addr_t&  {return r.br.ref_addr;},
        });
-    process_all_container_data_file(vector<std::function<addr_t&(MapRecord<0>&)>>{
+    process_all_data_file(vector<std::function<addr_t&(MapRecord<0>&)>>{
            [](auto& r) -> addr_t&  {return r.key_addr;},
            [](auto& r) -> addr_t&  {return r.value_addr;},
            [](auto& r) -> addr_t&  {return r.br.holder_addr;},
@@ -272,6 +314,23 @@ int main()
            [](auto& r) -> addr_t&  {return r.addr;},
        });
     process_all_field_data_file(vector<std::function<addr_t&(FieldValueRecord<0,1,1,1>&)>>{
+           [](auto& r) -> addr_t&  {return r.addr;},
+       });
+    process_all_data_file(vector<std::function<addr_t&(PutFieldRecord<0>&)>>{
+           [](auto& r) -> addr_t&  {return r.holder_addr;},
+           [](auto& r) -> addr_t&  {return r.ref_addr;},
+       });
+    process_all_data_file(vector<std::function<addr_t&(ConstructRecord<0>&)>>{
+           [](auto& r) -> addr_t&  {return r.addr;},
+       });
+    process_all_data_file(vector<std::function<addr_t&(AAStoreRecord<0>&)>>{
+           [](auto& r) -> addr_t&  {return r.holder_addr;},
+           [](auto& r) -> addr_t&  {return r.ref_addr;},
+       });
+    process_all_data_file(vector<std::function<addr_t&(UseRecord<0>&)>>{
+           [](auto& r) -> addr_t&  {return r.addr;},
+       });
+    process_all_data_file(vector<std::function<addr_t&(NewRecord<0>&)>>{
            [](auto& r) -> addr_t&  {return r.addr;},
        });
     fclose(new_id_file);

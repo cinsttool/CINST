@@ -3,13 +3,8 @@ import numpy as np
 import math
 import sys
 import scipy.stats as stats
-if len(sys.argv) == 2 and sys.argv[1] == '2':
-    files = ['mem', 'mem']
-    ylabel = 'Memory Bloat'
-else:
-    files = ['real', 'time']
-    ylabel = 'Runtime Slowdown'
-# files = ['real', 'time']
+
+files = ['merge', 'merge']
 
 def confidence_interval(x):
     geometric_mean = stats.gmean(x)
@@ -92,7 +87,10 @@ for line in data:
     data_by_marker.setdefault(line[-1], {'name':line[1]})
     if line[2] != '':
         data_by_marker[line[-1]][line[0]] = float(line[2])
+
+# print(data_by_marker)
 for k in data_by_marker: 
+    # print(data_by_marker[k])
     data_by_marker[k]['s1'] = data_by_marker[k].get('ort', 0)/data_by_marker[k]['java']
     data_by_marker[k]['s2'] = data_by_marker[k].get('ort_use', 0)/data_by_marker[k]['java']
     # if data_d[k]['s1'] > 30 or data_d[k]['s2'] > 30 or data_d[k]['s1'] == 0 or data_d[k]['s2'] == 0:
@@ -171,8 +169,8 @@ median_x1 = median(x1_avgs)
 geo_x2 = geoavg(x2_avgs)
 median_x2 = median(x2_avgs)
 
-print(f'geo x1: {geo_x1}, geo x2: {geo_x2}')
-print(f'median x1: {median_x1}, median x2: {median_x2}')
+# print(f'geo x1: {geo_x1}, geo x2: {geo_x2}')
+# print(f'median x1: {median_x1}, median x2: {median_x2}')
 
 def get_percent(x, p):
     x = sorted(x)
@@ -180,8 +178,8 @@ def get_percent(x, p):
 p = 0.9
 hline_y1 = get_percent(x1_avgs,p)
 hline_y2 = get_percent(x2_avgs,p)
-print(f'ref percent {p}: {hline_y1}')
-print(f'use percent {p}: {hline_y2}')
+# print(f'ref percent {p}: {hline_y1}')
+# print(f'use percent {p}: {hline_y2}')
 
 x1_avgs += [geo_x1, median_x1]
 x2_avgs += [geo_x2, median_x2]
@@ -191,7 +189,7 @@ labels.append("Median")
 
 
 
-print("0")
+# print("0")
 # x1s = {}
 # [x1s.setdefault(data_by_marker[x]['name'], []).append((data_by_marker[x]['s1'])) for x in data_by_marker]
 # x2s = {}
@@ -222,14 +220,14 @@ l = len(labels)
 total_width, n = 0.8, 2
 width = total_width/n
 x = np.arange(l) - (total_width-width)/2
-fig = plt.figure(figsize=(10,3.5))
-print("1")
+
+fig = plt.figure(figsize=(10,4))
 ax = fig.add_subplot(111)
 # print(x1)
-plt.rcParams["font.size"] = 8
-ax.bar(x, x1_avgs, width=width, label="ref", fc='#3c80bb')
-ax.bar(x+width, x2_avgs, width=width, label="use", fc='#a8d9b3')
-print("2")
+plt.rcParams["font.size"] = 8.5
+ax.bar(x, x1_avgs, width=width, label="Runtime", fc='#3c80bb')
+ax.bar(x+width, x2_avgs, width=width, label="Memory", fc='#ffA833')
+# print("2")
 x1_errs = np.array(x1_errs).transpose()
 x2_errs = np.array(x2_errs).transpose()
 plt.errorbar(x[:-2], x1_avgs[:-2], yerr=x1_errs, fmt="none", ecolor='black', capsize=2)
@@ -245,22 +243,22 @@ for i in range(len(names)):
     if i > 0:
         left = group_size_list[i-1]
     right = group_size_list[i]
-    plt.text(x=(left+right)/2, y=-max(x1_avgs+x2_avgs)/2*1.1, s=names[i], color='black', ha='center', va='center', clip_on=False)
+    plt.text(x=(left+right)/2, y=-max(x1_avgs+x2_avgs)/2, s=names[i], color='black', ha='center', va='center', clip_on=False)
 # plt.axvline(10.5, 0, -0.5, color = "black", linestyle="dashed", clip_on = False, linewidth=0.5)
 # plt.axvline(len(labels)-3+0.5, 0, -0.5, color = "black", linestyle="dashed", clip_on = False, linewidth=0.5)
 # plt.text(x=7*width*2, y = -max(x1_avgs+ x2_avgs)/2, s='Dacapo 9.2', color='black', ha='center', va='center', clip_on=False)
 # plt.text(x=21*width*2, y = -max(x1_avgs+ x2_avgs)/2, s='Renaissance', color='black', ha='center', va='center', clip_on=False)
-plt.xticks(np.arange(l), labels, rotation=90, fontsize=8)
-ax.set_ylabel(ylabel, {'fontsize': 8})
-print("3")
+plt.xticks(np.arange(l), labels, rotation=90, fontsize=9)
 # ax.set_xticks(np.arange(l), labels, rotation=90)
 ax2 = ax.twinx()
 hs = [hline_y1, hline_y2]
 ax2.set_yticks(hs, [f'{x:.1f}' for x in hs])
 ax2.set_ylim(ax.get_ylim())
+ax.set_ylabel('Runtime Slowdown and Memory Bloat', fontsize=9)
 # plt.text()
 ax.legend()
 plt.tight_layout()
 fig.savefig(f'{files[1]}.pdf', bbox_inches='tight')
 fig.savefig(f'{files[1]}.png', bbox_inches='tight')
-print(labels)
+# print(labels)
+print("Overhead analysis has been successfully generated!")

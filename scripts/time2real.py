@@ -19,7 +19,7 @@ def convert_file(input_file, output_file):
             # 将数据写入输出文件
             outfile.write(f"java, {name}, {time1}, {marker}\n")
             outfile.write(f"ort, {name}, {time2}, {marker}\n")
-            outfile.write(f"ort_use, {name}, {time3}, {marker}\n")
+            # outfile.write(f"ort_use, {name}, {time3}, {marker}\n")
 
 if __name__ == "__main__":
     input_file = "time.log"  # 输入文件名

@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <stdio.h>
+#include <functional>
 #include <assert.h>
 
 class RecordWriter;
