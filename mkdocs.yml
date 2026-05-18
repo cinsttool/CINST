@@ -14,7 +14,6 @@ nav:
       - Architecture: architecture.md
       - Evaluation: evaluation.md
       - Case Studies: case-studies.md
-      - Release Checklist: release-checklist.md
   - User Guide:
       - Installation: installation.md
       - Quick Start: quickstart.md
