@@ -32,7 +32,7 @@ with open("log_dir.txt", "w") as f:
 env = os.environ.copy()
 env['LD_PRELOAD'] = f'{env["CINST_ROOT"]}/lib/libpreload.so'
 with open("err.log", "a") as f:
-    for size in ["small"]:
+    for size in ["default"]:
         for case in testcases:
             print(f"{case[0]}-{size}", flush=True)
             bolt_base_prefix = f'java -agentpath:{env["CINST_ROOT"]}/lib/libagent.so="container" -Xbootclasspath/a:{env["CINST_ROOT"]}/../agent-jar-with-dependencies.jar -Xverify:none'
